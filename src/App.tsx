@@ -99,9 +99,9 @@ export default function App() {
         {state.model === 'glossary' ? (
           <Glossary />
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
             {/* Graph Area */}
-            <div className="lg:col-span-7 xl:col-span-8">
+            <div className="md:col-span-7 xl:col-span-8">
               <div className="sticky top-16">
                 <div className="flex justify-end mb-2">
                   <button
@@ -120,7 +120,7 @@ export default function App() {
             </div>
 
             {/* Controls & Explanation */}
-            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-5">
+            <div className="md:col-span-5 xl:col-span-4 flex flex-col gap-4">
               <Controls state={state} setState={setState} />
               <Explanation state={state} />
             </div>
