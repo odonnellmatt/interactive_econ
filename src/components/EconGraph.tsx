@@ -278,34 +278,74 @@ const EconGraph: React.FC<EconGraphProps> = ({ state, setState }) => {
 
         {/* Phase 5: Y-axis indicators */}
         {/* P1 */}
-        <line x1="44" y1={mapY(data.baseEq.Peq)} x2={mapX(data.baseEq.Qeq)} y2={mapY(data.baseEq.Peq)} stroke="#9ca3af" strokeWidth="1" strokeDasharray="4,4" />
-        <text x="40" y={mapY(data.baseEq.Peq) + 4} textAnchor="end" className="text-[10px] font-bold font-mono fill-gray-500">P₁</text>
+        <line x1="52" y1={mapY(data.baseEq.Peq)} x2={mapX(data.baseEq.Qeq)} y2={mapY(data.baseEq.Peq)} stroke="#9ca3af" strokeWidth="1" strokeDasharray="4,4" />
+        <text x="48" y={mapY(data.baseEq.Peq) + 4} textAnchor="end" className="text-[9px] font-bold font-mono fill-gray-500">P₁:{parseFloat(data.baseEq.Peq.toFixed(1))}</text>
         {/* P2 */}
         {P2 !== null && (
           <>
-            <line x1="44" y1={mapY(P2)} x2={mapX(Q2 || data.Q_traded)} y2={mapY(P2)} stroke="#4f46e5" strokeWidth="1" strokeDasharray="4,4" />
-            <text x="40" y={pLabelTooClose(P1, P2) ? mapY(P2) + (P2 < P1 ? 14 : -6) : mapY(P2) + 4} textAnchor="end" className="text-[10px] font-bold font-mono fill-indigo-600">P₂</text>
+            <line x1="52" y1={mapY(P2)} x2={mapX(Q2 || data.Q_traded)} y2={mapY(P2)} stroke="#4f46e5" strokeWidth="1" strokeDasharray="4,4" />
+            <text x="48" y={pLabelTooClose(P1, P2) ? mapY(P2) + (P2 < P1 ? 14 : -6) : mapY(P2) + 4} textAnchor="end" className="text-[9px] font-bold font-mono fill-indigo-600">P₂:{parseFloat(P2.toFixed(1))}</text>
           </>
         )}
         {/* Pp (producer price under tax) */}
         {Pp !== null && (
           <>
-            <line x1="44" y1={mapY(Pp)} x2={mapX(Q2 || data.Q_traded)} y2={mapY(Pp)} stroke="#dc2626" strokeWidth="1" strokeDasharray="4,4" />
-            <text x="40" y={pLabelTooClose(P1, Pp) ? mapY(Pp) + 14 : mapY(Pp) + 4} textAnchor="end" className="text-[10px] font-bold font-mono fill-red-600">Pₚ</text>
+            <line x1="52" y1={mapY(Pp)} x2={mapX(Q2 || data.Q_traded)} y2={mapY(Pp)} stroke="#dc2626" strokeWidth="1" strokeDasharray="4,4" />
+            <text x="48" y={pLabelTooClose(P1, Pp) ? mapY(Pp) + 14 : mapY(Pp) + 4} textAnchor="end" className="text-[9px] font-bold font-mono fill-red-600">Pₚ:{parseFloat(Pp.toFixed(1))}</text>
           </>
         )}
 
-        {/* Phase 5: X-axis indicators */}
-        {/* Q1 */}
-        <line x1={mapX(data.baseEq.Qeq)} y1="456" x2={mapX(data.baseEq.Qeq)} y2={mapY(data.baseEq.Peq)} stroke="#9ca3af" strokeWidth="1" strokeDasharray="4,4" />
-        <text x={mapX(data.baseEq.Qeq)} y="468" textAnchor="middle" className="text-[10px] font-bold font-mono fill-gray-500">Q₁</text>
-        {/* Q2 */}
-        {Q2 !== null && (
-          <>
-            <line x1={mapX(Q2)} y1="456" x2={mapX(Q2)} y2={mapY(P2 || data.P_C)} stroke="#4f46e5" strokeWidth="1" strokeDasharray="4,4" />
-            <text x={mapX(Q2)} y="480" textAnchor="middle" className="text-[10px] font-bold font-mono fill-indigo-600">Q₂</text>
-          </>
-        )}
+        {/* Phase 5: X-axis anti-overlap helpers */}
+        {(() => {
+          const placedLabels: { id: string, x: number, y: number, text: React.ReactNode, line: React.ReactNode | null }[] = [];
+
+          const addLabel = (id: string, value: number, textNode: (x: number, y: number) => React.ReactNode, lineNode: ((x: number) => React.ReactNode) | null = null) => {
+            const x = mapX(value);
+            let y = 464;
+            let conflict = true;
+            while (conflict) {
+              // require at least 26px gap to avoid overlap
+              conflict = placedLabels.some(l => Math.abs(l.x - x) < 26 && l.y === y);
+              if (conflict) y += 12; // bump down vertically
+            }
+            placedLabels.push({ id, x, y, text: textNode(x, y), line: lineNode ? lineNode(x) : null });
+          };
+
+          const q1Value = data.baseEq.Qeq;
+          addLabel('Q1', q1Value,
+            (x, y) => <text key="t-q1" x={x} y={y} textAnchor="middle" className="text-[9px] font-bold font-mono fill-gray-500">Q₁:{parseFloat(q1Value.toFixed(1))}</text>,
+            (x) => <line key="l-q1" x1={x} y1="448" x2={x} y2={mapY(data.baseEq.Peq)} stroke="#9ca3af" strokeWidth="1" strokeDasharray="4,4" />
+          );
+
+          if (Q2 !== null) {
+            addLabel('Q2', Q2,
+              (x, y) => <text key="t-q2" x={x} y={y} textAnchor="middle" className="text-[9px] font-bold font-mono fill-indigo-600">Q₂:{parseFloat(Q2.toFixed(1))}</text>,
+              (x) => <line key="l-q2" x1={x} y1="448" x2={x} y2={mapY(P2 || data.P_C)} stroke="#4f46e5" strokeWidth="1" strokeDasharray="4,4" />
+            );
+          }
+
+          let qdTarget = isBindingCeiling ? shortageQd : (isBindingFloor ? surplusQd : null);
+          let qsTarget = isBindingCeiling ? shortageQs : (isBindingFloor ? surplusQs : null);
+
+          if (qdTarget !== null) {
+            addLabel('Qd', qdTarget,
+              (x, y) => <text key="t-qd" x={x} y={y} textAnchor="middle" className="text-[8px] font-bold font-mono fill-[#b45309]">Qd:{parseFloat(qdTarget.toFixed(1))}</text>
+            );
+          }
+
+          if (qsTarget !== null) {
+            addLabel('Qs', qsTarget,
+              (x, y) => <text key="t-qs" x={x} y={y} textAnchor="middle" className="text-[8px] font-bold font-mono fill-[#b45309]">Qs:{parseFloat(qsTarget.toFixed(1))}</text>
+            );
+          }
+
+          return (
+            <>
+              {placedLabels.map(l => l.line)}
+              {placedLabels.map(l => l.text)}
+            </>
+          );
+        })()}
 
         <g clipPath="url(#graph-clip)">
           {/* Welfare Shaded Areas — conditional on showWelfare */}
@@ -360,8 +400,8 @@ const EconGraph: React.FC<EconGraphProps> = ({ state, setState }) => {
           )}
 
           {/* Equilibrium dashed lines */}
-          <motion.line x1="50" y1={mapY(data.P_C)} x2={mapX(data.Q_traded)} y2={mapY(data.P_C)} stroke="#111827" strokeWidth="1.5" strokeDasharray="4,4" transition={{ duration: 0 }} />
-          <motion.line x1={mapX(data.Q_traded)} y1="450" x2={mapX(data.Q_traded)} y2={mapY(data.P_C)} stroke="#111827" strokeWidth="1.5" strokeDasharray="4,4" transition={{ duration: 0 }} />
+          <motion.line x1="52" y1={mapY(data.P_C)} x2={mapX(data.Q_traded)} y2={mapY(data.P_C)} stroke="#111827" strokeWidth="1.5" strokeDasharray="4,4" transition={{ duration: 0 }} />
+          <motion.line x1={mapX(data.Q_traded)} y1="448" x2={mapX(data.Q_traded)} y2={mapY(data.P_C)} stroke="#111827" strokeWidth="1.5" strokeDasharray="4,4" transition={{ duration: 0 }} />
 
           {/* Interventions */}
           {model === 'ceiling' && (
@@ -463,19 +503,7 @@ const EconGraph: React.FC<EconGraphProps> = ({ state, setState }) => {
         {model === 'world' && <text x="380" y={clampY(mapY(worldPrice) - 8)} fill="#059669" className="text-xs font-bold font-mono">World Price</text>}
         {model === 'world' && tariff > 0 && <text x="380" y={clampY(mapY(worldPrice + tariff) - 8)} fill="#059669" className="text-xs font-bold font-mono">WP + Tariff</text>}
 
-        {/* Phase 6: Qs/Qd labels on x-axis for shortage/surplus */}
-        {isBindingCeiling && (
-          <>
-            <text x={mapX(shortageQs)} y="494" textAnchor="middle" className="text-[9px] font-bold font-mono" fill="#b45309">Qs</text>
-            <text x={mapX(shortageQd)} y="494" textAnchor="middle" className="text-[9px] font-bold font-mono" fill="#b45309">Qd</text>
-          </>
-        )}
-        {isBindingFloor && (
-          <>
-            <text x={mapX(surplusQd)} y="494" textAnchor="middle" className="text-[9px] font-bold font-mono" fill="#b45309">Qd</text>
-            <text x={mapX(surplusQs)} y="494" textAnchor="middle" className="text-[9px] font-bold font-mono" fill="#b45309">Qs</text>
-          </>
-        )}
+        {/* Phase 6: Qs/Qd labels on x-axis for shortage/surplus (Moved to Phase 5 Anti-Overlap Block) */}
 
         {/* Phase 8: Trade text for World Price mode */}
         {model === 'world' && (
