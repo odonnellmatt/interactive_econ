@@ -12,8 +12,8 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
   };
 
   const Slider = ({ label, value, min, max, step, stateKey }: { label: string, value: number, min: number, max: number, step: number, stateKey: keyof AppState }) => (
-    <div className="mb-5">
-      <div className="flex justify-between items-center mb-2">
+    <div className="mb-3">
+      <div className="flex justify-between items-center mb-1">
         <label className="text-sm font-semibold text-gray-900">{label}</label>
         <div className="flex items-center gap-1">
           {value > 0 && stateKey.toString().includes('shift') && <span className="text-sm text-gray-500 font-mono">+</span>}
@@ -41,11 +41,11 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
   );
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-      <h3 className="text-lg font-bold mb-6 text-gray-900 tracking-tight">Parameters</h3>
+    <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+      <h3 className="text-lg font-bold mb-4 text-gray-900 tracking-tight">Parameters</h3>
 
-      <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-xl">
-        <h4 className="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Base Equilibrium</h4>
+      <div className="mb-4 p-3 bg-gray-50 border border-gray-200 rounded-xl">
+        <h4 className="text-sm font-bold text-gray-700 mb-2 uppercase tracking-wider">Base Equilibrium</h4>
         <Slider label="Initial Price" value={state.baseP} min={10} max={90} step={1} stateKey="baseP" />
         <Slider label="Initial Quantity" value={state.baseQ} min={10} max={90} step={1} stateKey="baseQ" />
       </div>
@@ -90,7 +90,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
           baseP: 50, baseQ: 50, shiftD: 0, shiftS: 0, slopeD: -1, slopeS: 0.8,
           priceCeiling: 40, priceFloor: 65, tax: 20, worldPrice: 30, tariff: 0
         }))}
-        className="mt-6 w-full py-2.5 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all active:scale-[0.98]"
+        className="mt-4 w-full py-2 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all active:scale-[0.98]"
       >
         Reset to Default
       </button>

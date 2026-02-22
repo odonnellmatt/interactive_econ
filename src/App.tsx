@@ -61,7 +61,7 @@ export default function App() {
     <div className="min-h-screen bg-[#F5F3EE] text-[#111111] font-sans selection:bg-indigo-100">
       {/* Header */}
       <header className="bg-[#E8E4DD] border-b border-gray-300 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-[#E63B2E] p-2 rounded-lg shadow-sm">
               <LineChart className="w-5 h-5 text-white" />
@@ -74,9 +74,9 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Model Selector */}
-        <div className="flex overflow-x-auto pb-4 mb-6 gap-3 hide-scrollbar">
+        <div className="flex overflow-x-auto pb-3 mb-4 gap-2 hide-scrollbar">
           {models.map((m) => {
             const Icon = m.icon;
             const isActive = state.model === m.id;
@@ -84,7 +84,7 @@ export default function App() {
               <button
                 key={m.id}
                 onClick={() => setState({ ...defaultState, model: m.id as ModelType })}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${isActive
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${isActive
                   ? 'bg-[#111111] text-white shadow-md scale-105'
                   : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-gray-300'
                   }`}
@@ -99,10 +99,10 @@ export default function App() {
         {state.model === 'glossary' ? (
           <Glossary />
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
             {/* Graph Area */}
             <div className="lg:col-span-7 xl:col-span-8">
-              <div className="sticky top-24">
+              <div className="sticky top-16">
                 <div className="flex justify-end mb-2">
                   <button
                     onClick={() => setState(prev => ({ ...prev, showWelfare: !prev.showWelfare }))}
@@ -120,7 +120,7 @@ export default function App() {
             </div>
 
             {/* Controls & Explanation */}
-            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-5">
               <Controls state={state} setState={setState} />
               <Explanation state={state} />
             </div>

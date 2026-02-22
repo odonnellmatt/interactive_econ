@@ -12,12 +12,12 @@ const Explanation: React.FC<ExplanationProps> = ({ state }) => {
   const hasTax = (model === 'tax' || model === 'elasticity') && state.tax > 0;
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-      <h3 className="text-lg font-bold mb-6 text-gray-900 tracking-tight">Economic Analysis</h3>
+    <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
+      <h3 className="text-lg font-bold mb-4 text-gray-900 tracking-tight">Economic Analysis</h3>
 
-      <div className="space-y-5 text-gray-700 leading-relaxed">
+      <div className="space-y-4 text-gray-700 leading-relaxed">
         {/* Equilibrium display: free-market + intervention outcome */}
-        <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-2">
+        <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
           {state.shiftD !== 0 || state.shiftS !== 0 ? (
             <>
               <p className="text-sm">
