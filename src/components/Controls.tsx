@@ -66,11 +66,11 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
       )}
 
       {state.model === 'ceiling' && (
-        <Slider label="Price Ceiling" value={state.priceCeiling} min={10} max={90} step={1} stateKey="priceCeiling" />
+        <Slider label="Price Ceiling" value={state.priceCeiling} min={10} max={90} step={0.1} stateKey="priceCeiling" />
       )}
 
       {state.model === 'floor' && (
-        <Slider label="Price Floor" value={state.priceFloor} min={10} max={90} step={1} stateKey="priceFloor" />
+        <Slider label="Price Floor" value={state.priceFloor} min={10} max={90} step={0.1} stateKey="priceFloor" />
       )}
 
       {state.model === 'tax' && (
@@ -79,7 +79,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
 
       {state.model === 'world' && (
         <>
-          <Slider label="World Price" value={state.worldPrice} min={10} max={90} step={1} stateKey="worldPrice" />
+          <Slider label="World Price" value={state.worldPrice} min={10} max={90} step={0.1} stateKey="worldPrice" />
           <Slider label="Tariff" value={state.tariff} min={0} max={30} step={1} stateKey="tariff" />
         </>
       )}

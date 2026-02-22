@@ -190,19 +190,19 @@ const EconGraph: React.FC<EconGraphProps> = ({ state, setState }) => {
     if (draggingTarget === 'C') {
       let newPrice = dragStart.initialValue + dy;
       newPrice = Math.max(10, Math.min(90, newPrice));
-      setState(prev => ({ ...prev, priceCeiling: Math.round(newPrice) }));
+      setState(prev => ({ ...prev, priceCeiling: parseFloat(newPrice.toFixed(1)) }));
       return;
     }
     if (draggingTarget === 'F') {
       let newPrice = dragStart.initialValue + dy;
       newPrice = Math.max(10, Math.min(90, newPrice));
-      setState(prev => ({ ...prev, priceFloor: Math.round(newPrice) }));
+      setState(prev => ({ ...prev, priceFloor: parseFloat(newPrice.toFixed(1)) }));
       return;
     }
     if (draggingTarget === 'W') {
       let newWP = dragStart.initialValue + dy;
       newWP = Math.max(10, Math.min(90, newWP));
-      setState(prev => ({ ...prev, worldPrice: Math.round(newWP) }));
+      setState(prev => ({ ...prev, worldPrice: parseFloat(newWP.toFixed(1)) }));
       return;
     }
     if (draggingTarget === 'T') {
