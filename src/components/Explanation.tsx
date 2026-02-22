@@ -66,7 +66,7 @@ const Explanation: React.FC<ExplanationProps> = ({ state }) => {
             {state.priceCeiling < data.freeMarketEq.Peq ? (
               <p className="text-red-700 bg-red-50 p-3 rounded-lg border border-red-100">
                 Because the ceiling is below the equilibrium price, it is <em>binding</em>. This creates a <strong className="font-bold">shortage</strong> of {data.shortage.toFixed(1)} units
-                {' '}(Qd = {getQD(state.priceCeiling, state.shiftD, state.slopeD).toFixed(1)}, Qs = {getQS(state.priceCeiling, state.shiftS, state.slopeS).toFixed(1)}),
+                {' '}(Qd = {getQD(state.priceCeiling, state.shiftD, state.slopeD, state.baseP, state.baseQ).toFixed(1)}, Qs = {getQS(state.priceCeiling, state.shiftS, state.slopeS, state.baseP, state.baseQ).toFixed(1)}),
                 as quantity demanded exceeds quantity supplied. A deadweight loss occurs due to mutually beneficial trades being blocked.
               </p>
             ) : (
@@ -81,7 +81,7 @@ const Explanation: React.FC<ExplanationProps> = ({ state }) => {
             {state.priceFloor > data.freeMarketEq.Peq ? (
               <p className="text-red-700 bg-red-50 p-3 rounded-lg border border-red-100">
                 Because the floor is above the equilibrium price, it is <em>binding</em>. This creates a <strong className="font-bold">surplus</strong> of {data.surplus.toFixed(1)} units
-                {' '}(Qd = {getQD(state.priceFloor, state.shiftD, state.slopeD).toFixed(1)}, Qs = {getQS(state.priceFloor, state.shiftS, state.slopeS).toFixed(1)}),
+                {' '}(Qd = {getQD(state.priceFloor, state.shiftD, state.slopeD, state.baseP, state.baseQ).toFixed(1)}, Qs = {getQS(state.priceFloor, state.shiftS, state.slopeS, state.baseP, state.baseQ).toFixed(1)}),
                 as quantity supplied exceeds quantity demanded. A deadweight loss occurs.
               </p>
             ) : (
