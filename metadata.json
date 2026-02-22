@@ -1,0 +1,5 @@
+{
+  "name": "EconPlayground",
+  "description": "Interactive microeconomics models for students to learn supply and demand, price controls, taxes, and world trade.",
+  "requestFramePermissions": []
+}
