@@ -361,11 +361,11 @@ const EconGraph: React.FC<EconGraphProps> = ({ state, setState }) => {
           )}
 
           {/* Base Curves (dashed, shown when shifted) */}
-          {(shiftD !== 0 || slopeD !== -1 || baseP !== 50 || baseQ !== 45) && (
+          {(shiftD !== 0 || slopeD !== -1 || baseP !== 55 || baseQ !== 50) && (
             <line x1={mapX(0)} y1={mapY(getPD(0, 0, -1, baseP, baseQ))} x2={mapX(100)} y2={mapY(getPD(100, 0, -1, baseP, baseQ))} stroke="#9ca3af" strokeWidth="2" strokeDasharray="6,6" />
           )}
-          {(shiftS !== 0 || slopeS !== 0.8 || baseP !== 50 || baseQ !== 45) && (
-            <line x1={mapX(0)} y1={mapY(getPS(0, 0, 0.8, baseP, baseQ))} x2={mapX(100)} y2={mapY(getPS(100, 0, 0.8, baseP, baseQ))} stroke="#9ca3af" strokeWidth="2" strokeDasharray="6,6" />
+          {(shiftS !== 0 || slopeS !== 1 || baseP !== 55 || baseQ !== 50) && (
+            <line x1={mapX(0)} y1={mapY(getPS(0, 0, 1, baseP, baseQ))} x2={mapX(100)} y2={mapY(getPS(100, 0, 1, baseP, baseQ))} stroke="#9ca3af" strokeWidth="2" strokeDasharray="6,6" />
           )}
 
           {/* Current Curves */}

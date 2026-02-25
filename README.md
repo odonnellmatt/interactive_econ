@@ -1,50 +1,120 @@
-## Run Locally
+# EconPlayground — Interactive Microeconomics Sandbox
 
-**Prerequisites:**  Node.js
+An interactive learning tool designed for university students studying introductory microeconomics. Students manipulate demand and supply schedules in real time and immediately observe how market equilibria and welfare respond.
 
+Built with React + Vite and designed for embedding as iframes in **Canvas LMS** (or any other learning platform).
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
 
-## 🚀 Free Hosting & Deployment
+## 🎓 What This Tool Teaches
 
-Since this is a client-side React + Vite application, you can host it completely for **free** forever. We highly recommend using one of the following services, which automatically build and deploy your app whenever you push to GitHub:
+| Module | URL param | Concepts covered |
+|--------|-----------|-----------------|
+| **Supply & Demand Shifts** | `?model=standard` | Curve shifts; new P\* and Q\* |
+| **Price Ceiling** | `?model=ceiling` | Binding vs. non-binding; shortages; DWL |
+| **Price Floor** | `?model=floor` | Binding vs. non-binding; surpluses; DWL |
+| **Taxes & Tax Incidence** | `?model=tax` | Tax wedge; consumer/producer price; tax revenue; DWL |
+| **World Price & Trade** | `?model=world` | Free trade; imports/exports; tariffs; tariff revenue; DWL |
+| **Elasticity** | `?model=elasticity` | Slope vs. elasticity; tax incidence shares |
+| **Glossary** | `?model=glossary` | Key term definitions |
+
+---
+
+## ✨ Key Features
+
+- **Drag-to-move** — Drag supply/demand curves and price lines directly on the graph
+- **Fluid sliders + numeric inputs** — Every parameter has a slider and a direct number field
+- **Dynamic Economic Analysis** — Plain-English explanations update live (e.g. "This ceiling is binding — shortage of X units…")
+- **Welfare Areas toggle** — Show/hide Consumer Surplus, Producer Surplus, DWL, Tax/Tariff Revenue
+- **Per-module iframes** — Append `?model=<id>` to lock the app to one module, hiding the tab navigation
+
+---
+
+## 🔗 Per-Module iFrame URLs
+
+Each module is embedded independently using a URL query parameter. When `?model=` is set, the navigation tabs are hidden and the module title appears in the header.
+
+Replace `YOUR_DEPLOYED_URL` with your Vercel/Netlify URL in each snippet below.
+
+### Supply & Demand Shifts
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=standard" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Supply & Demand Shifts" allowfullscreen></iframe>
+```
+
+### Price Ceiling
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=ceiling" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Price Ceiling" allowfullscreen></iframe>
+```
+
+### Price Floor
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=floor" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Price Floor" allowfullscreen></iframe>
+```
+
+### Taxes & Tax Incidence
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=tax" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Taxes & Tax Incidence" allowfullscreen></iframe>
+```
+
+### World Price & Trade
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=world" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="World Price & Trade" allowfullscreen></iframe>
+```
+
+### Elasticity
+```html
+<iframe src="YOUR_DEPLOYED_URL/?model=elasticity" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Elasticity" allowfullscreen></iframe>
+```
+
+---
+
+## 🚀 Run Locally
+
+**Prerequisites:** Node.js
+
+```bash
+npm install
+npm run dev          # starts on http://localhost:3000
+```
+
+Test any module locally by visiting e.g. `http://localhost:3000/?model=ceiling`.
+
+---
+
+## 🌐 Free Hosting & Deployment
 
 ### Option 1: Vercel (Recommended)
 1. Push this repository to GitHub.
-2. Go to [Vercel](https://vercel.com/) and create a free account.
-3. Click **Add New** -> **Project**.
-4. Import your GitHub repository.
-5. Vercel will auto-detect Vite. Click **Deploy**. Your app will be live on a free `.vercel.app` domain.
+2. Go to [vercel.com](https://vercel.com/) → **Add New → Project**.
+3. Import your repo — Vercel auto-detects Vite. Click **Deploy**.
 
 ### Option 2: Netlify
-1. Push this repository to GitHub.
-2. Go to [Netlify](https://www.netlify.com/) and create a free account.
-3. Click **Add new site** -> **Import an existing project**.
-4. Select GitHub and authorize.
-5. Choose your repository and click **Deploy Site**. Your app will be live on a free `.netlify.app` domain.
+1. Push to GitHub.
+2. Go to [netlify.com](https://netlify.com/) → **Add new site → Import an existing project**.
+3. Select your repo and click **Deploy Site**.
 
-## 🎓 Embedding in Canvas LMS
+---
 
-Once your application is deployed to one of the free hosts above, you can embed it seamlessly into a Canvas Page or Assignment using an `iframe`. This allows students to interact with the sandbox directly inside their course materials without being redirected to an external website.
+## 🎓 Embedding the Full Sandbox (optional)
 
-1. Copy the URL of your deployed application (e.g., `https://my-econ-app.vercel.app/`).
-2. In Canvas, open the Page or Assignment where you want to embed the tool.
-3. Switch the Rich Content Editor to **HTML Editor** (usually an icon like `</>` at the bottom right).
-4. Paste the following snippet, replacing `YOUR_DEPLOYED_URL_HERE` with your actual URL:
+To give students access to all modules at once (e.g. on a general overview page):
 
 ```html
-<iframe 
-  src="YOUR_DEPLOYED_URL_HERE" 
-  width="100%" 
-  height="850px" 
-  style="border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" 
-  title="Microeconomics Interactive Sandbox"
-  allowfullscreen
-></iframe>
+<iframe src="YOUR_DEPLOYED_URL" width="100%" height="850px"
+  style="border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 6px -1px rgb(0 0 0/.1);"
+  title="Microeconomics Interactive Sandbox" allowfullscreen></iframe>
 ```
 
-5. Save and publish your Canvas page. The app will now load directly inline!
+> The same iframe snippets work in any LMS or website (Moodle, Blackboard, Notion, etc.).

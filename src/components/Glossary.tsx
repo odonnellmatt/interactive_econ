@@ -75,23 +75,6 @@ const Glossary: React.FC = () => {
                     </div>
                 ))}
             </div>
-
-            <div className="mt-12 p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
-                <h3 className="text-xl font-bold text-gray-900 mb-4 tracking-tight">Embed this Sandbox</h3>
-                <p className="text-sm text-gray-700 mb-4 leading-relaxed">
-                    You can embed this interactive economics sandbox into your own website, blog, or Learning Management System (LMS) by copying and pasting the HTML code below.
-                </p>
-                <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono">
-                    <pre><code>{`<iframe 
-  src="https://interactive-econ.vercel.app/" 
-  width="100%" 
-  height="720px" 
-  style="border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" 
-  title="Microeconomics Interactive Sandbox"
-  allowfullscreen
-></iframe>`}</code></pre>
-                </div>
-            </div>
         </div>
     );
 };
