@@ -111,7 +111,7 @@ const Controls: React.FC<ControlsProps> = ({ state, setState }) => {
         onClick={() => setState(prev => ({
           ...prev,
           baseP: 55, baseQ: 50, shiftD: 0, shiftS: 0, slopeD: -1, slopeS: 1,
-          priceCeiling: 40, priceFloor: 65, tax: 20, worldPrice: 30, tariff: 0
+          priceCeiling: 40, priceFloor: 65, tax: state.model === 'elasticity' ? 0 : 20, worldPrice: 30, tariff: 0
         }))}
         className="mt-4 w-full py-2 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all active:scale-[0.98]"
       >
